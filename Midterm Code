@@ -1,0 +1,102 @@
+import processing.sound.*;
+SoundFile file;
+
+
+int NumLayers = 26;   
+int Speed = 1;       
+int value = 5; 
+PImage[] imgs;
+int index;
+
+void setup() {
+
+  size(1200, 800);
+
+  imgs = new PImage[26];
+  imgs[0] = loadImage("IMG_6259.jpg"); 
+  imgs[1] = loadImage("IMG_3085.jpg"); 
+  filter(INVERT);
+  imgs[2] = loadImage("IMG_3085.jpg"); 
+  filter(INVERT);
+  imgs[3] = loadImage ("IMG_3494.jpg"); 
+  filter(THRESHOLD);
+  imgs[4] = loadImage ("IMG_3539.jpg"); 
+  filter(THRESHOLD);
+  imgs[5] = loadImage ("stones.jpg"); 
+  filter (THRESHOLD); 
+  imgs[6] = loadImage ("stones.jpg"); 
+  filter (THRESHOLD);
+  imgs[7] = loadImage ("unnamed.jpg"); 
+  filter(THRESHOLD); 
+  imgs[8] = loadImage ("unnamed-7.jpg"); 
+  filter (THRESHOLD); 
+  imgs[9] = loadImage ("bon1.jpg"); 
+  filter (THRESHOLD); 
+  imgs[10] = loadImage ("bon1.jpg"); 
+  filter (THRESHOLD); 
+  imgs[11] = loadImage ("bon1.jpg"); 
+  filter (THRESHOLD); 
+  imgs[12] = loadImage ("IMG_3093.JPG"); 
+  imgs[13] = loadImage ("number22.jpg"); 
+  filter (THRESHOLD); 
+  imgs[14] = loadImage ("IMG_3875.JPG"); 
+  imgs[15] = loadImage ("IMG_3875.JPG"); 
+  imgs[16] = loadImage ("IMG_3875.JPG"); 
+  imgs [17] = loadImage ("10855117_10207844978504899_6758802065047700606_o.jpg"); 
+  imgs [18] = loadImage ("IMG_2980.JPG");
+  filter (INVERT);
+  imgs [19] = loadImage ("number10.jpg");
+  filter (INVERT);
+  imgs [20] = loadImage ("number10.jpg");
+  filter (INVERT);
+  imgs [21] = loadImage ("number10.jpg");
+  filter (INVERT);
+  imgs [22] = loadImage ("number9.jpg");
+  filter (INVERT);
+  imgs [23] = loadImage ("IMG_6259.jpg"); 
+  filter (INVERT);
+  imgs [24] = loadImage ("IMG_6259.jpg");
+  imgs [25] = loadImage ("IMG_6259.jpg");
+
+
+
+  image(imgs[0], 0, 0, width, height);
+
+  file = new SoundFile(this, "We Were Evergreen - Daughters.mp3");
+  file.loop();
+}
+
+
+void draw() {
+  background(2, 8, 6000);
+
+  if (frameCount % 20 == 0 ) {
+    index++; 
+    if (index >= imgs.length) {
+      index = 0;
+    }
+    image(imgs[index], 0, 0, width, height);
+  }
+
+
+
+  float coef = map (mouseX, 9, width, 0, 10);
+
+
+  loadPixels();
+  for (int i=0; i < pixels.length; i++) {
+
+    color c = pixels[i];
+    pixels[i] = color(20, green (c), blue(c++), red(c)*coef);
+  }
+  updatePixels();
+  fill(value);
+}
+
+void mouseDragged() 
+{
+  value = value + 50;
+  if (value > 0) {
+    value = 9;
+  }
+}
